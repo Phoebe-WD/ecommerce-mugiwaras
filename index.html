@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/4a7cd294ab.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon" />
+    <title>Mugiwaras</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div>
+          <img src="./assets/logo.png" alt="logo" />
+        </div>
+        <ul>
+          <li>Nosotros</li>
+          <li>Categorias</li>
+          <li>Tiendas</li>
+        </ul>
+        <div>
+          <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+        </div>
+      </nav>
+      <div class="title">
+        <h1>Tienda Mugiwaras</h1>
+      </div>
+    </header>
+    <main>
+      <div>
+        <div id="carrito"></div>
+        <form>
+          <div class="input-cost">
+            <label for="precio1">Precio Producto 1</label>
+            <input type="number" name="precio1" id="precio1" /><br />
+            <label for="precio1">Precio Producto 2</label>
+            <input type="number" name="precio2" id="precio2" />
+            <input type="reset" value="Limpiar" />
+          </div>
+        </form>
+        <div id="totalCart">
+          <button id="calcular">Calcular Total!</button>
+          <p id="resultado"></p>
+        </div>
+      </div>
+      <div>
+        <div id="contenedorProductos"></div>
+      </div>
+    </main>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
