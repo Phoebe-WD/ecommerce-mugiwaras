@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Monkey D Luffy",
+    "description": "Futuro Rey de los Piratas ",
+    "stock": 10,
+    "img": "/assets/monkey-d-luffy.jpg",
+    "precio": 200
+  },
+  {
+    "id": 2,
+    "name": "Zoro",
+    "description": "El mejor espadachin de los Mugiwaras",
+    "stock": 8,
+    "img": "/assets/zoro.jpg",
+    "precio": 150
+  },
+  {
+    "id": 3,
+    "name": "Sanji",
+    "description": "Piernas negras, best cocinero",
+    "stock": 6,
+    "img": "/assets/sanji.jpg",
+    "precio": 150
+  },
+  {
+    "id": 4,
+    "name": "Nami",
+    "description": "Best navegante ever",
+    "stock": 5,
+    "img": "/assets/nami.jpg",
+    "precio": 160
+  },
+  {
+    "id": 5,
+    "name": "Chopper",
+    "description": "Love al tanuki",
+    "stock": 3,
+    "img": "/assets/chopper.jpg",
+    "precio": 50
+  },
+  {
+    "id": 6,
+    "name": "Franky",
+    "description": "Best constructor",
+    "stock": 4,
+    "img": "/assets/franky.jpg",
+    "precio": 100
+  },
+  {
+    "id": 7,
+    "name": "Nico Robin",
+    "description": "Best historiadora",
+    "stock": 2,
+    "img": "/assets/nico-robin.jpg",
+    "precio": 100
+  },
+  {
+    "id": 8,
+    "name": "Usopp",
+    "description": "Best Francotirador",
+    "stock": 7,
+    "img": "/assets/usopp.jpg",
+    "precio": 100
+  },
+  {
+    "id": 9,
+    "name": "Jinbe",
+    "description": "Best Gyojin",
+    "stock": 12,
+    "img": "/assets/jinbe.jpg",
+    "precio": 100
+  },
+  {
+    "id": 10,
+    "name": "Sabo",
+    "description": "Best Brotha",
+    "stock": 12,
+    "img": "/assets/sabo.jpg",
+    "precio": 100
+  }
+]
