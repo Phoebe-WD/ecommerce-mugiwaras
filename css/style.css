@@ -2,14 +2,6 @@
 :root {
     --font-principal: 'KoHo',
     sans-serif;
-    --background-color: #00F3BB;
-    --background-hover: linear-gradient(225deg, #0000FE 0%, #00F0B8 100%);
-    --color-principal: #060A24;
-    --text-hover: #00F3BB;
-    --text-active: rgba(6, 10, 36, 0.56);
-    --text-button: #060A24;
-    --button-hover: #FFFFFF;
-    --background-episodes: linear-gradient(225deg, #0000FF 0%, #0000A3 100%);
 }
 
 * {
@@ -25,8 +17,66 @@ body {
 }
 
 /* FIN ESTILOS GLOBALES */
+header{
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    height: auto;
+    background-color: #ff9800;
+}
 
-#productos{
+nav{
+    width: 90%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+nav .logo-img{
+    width: 20%;
+}
+nav .logo-img img {
+    width: 100px;
+    height: 100px;
+}
+nav .title{
+    width: 60%;
+    text-align: center;
+}
+nav ul{
+    width: 20%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-btn{
+    position: relative;
+    cursor: pointer;
+}
+.close-cart{
+    width: 30px;
+    height: 30px;
+}
+.fa-cart-shopping,
+.fa-circle-xmark {
+    color: #ab0c00;
+    font-size: 2rem;
+}
+.amount-items{
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    background-color: #3e81c1;
+    border-radius: 30%;
+    color: #fff;
+    padding: 0 5px;
+}
+#products{
     padding: 10px;
     width: 90%;
     margin: 0 auto;
