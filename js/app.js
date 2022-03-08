@@ -1,80 +1,139 @@
-// mapeamos los productos
-fetch("./data.json", {
-  method: "GET",
-})
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.table(data);
-    data.map((mug) => {
-      console.log(mug.img);
-      const divProductos = document.querySelector("#productos");
-      divProductos.innerHTML += `
-        <div class="containerProduct">
-            <img src="${mug.img}" class="imgProduct">
-            <h2>${mug.name}</h2>
-            <div class="infoProduct">
-                <h4>Stock: ${mug.stock}</h4>
-                <h3>$${mug.precio}</h3>
-            </div>
-            <div class="infoProduct">
-                <div class="centrar">
-                <button class="addProduct">Agregar</button>
-                </div>
-        </div>            `;
-    });
-  });
+// Variables del DOM
+const productsDOM = document.querySelector("#products");
+const cartTotal = document.querySelector("#totalCart");
+const cartItems = document.querySelector("#carrito");
+const cartContent = document.querySelector("#cart-content");
 
-const CalcularCosto = () => {
-  const getBtn = document.getElementById("calcular");
-  const getResult = document.getElementById("resultado");
-  getBtn.addEventListener("click", () => {
-    const precio1 = Number(document.getElementById("precio1").value);
-    const precio2 = Number(document.getElementById("precio2").value);
-    console.log(precio1, precio2, "loh inpu");
-    const iva = 19;
-    let precioConIva = ((precio1 + precio2) * iva) / 100;
-    console.log(precioConIva, "nos sumamos?");
-    let precioTotal = new Intl.NumberFormat("es-CL").format(
-      Math.floor(precio1 + precio2 + precioConIva)
-    );
-    if (precioTotal >= 20000) {
-      getResult.innerHTML = `El total de tu compra es: $ ${precioTotal} CLP`;
-    } else {
-      getResult.innerHTML = `El total de tu compra es: $ ${precioTotal} CLP, necesitas agregar más productos a tu carrito.`;
+//nuestro carrito
+
+let cart = [];
+let btnsDOM = [];
+
+// obtenemos los productos
+class Products {
+  async getProducts() {
+    try {
+      let result = await fetch("./data.json");
+      let data = await result.json();
+      let products = data;
+      products = products?.map((product) => {
+        const id = product.id;
+        const img = product.img;
+        const name = product.name;
+        const price = product.precio;
+        const stock = product.stock;
+        return { id, img, name, price, stock };
+      });
+      return products;
+    } catch (error) {
+      console.log(error);
     }
-  });
-};
+  }
+}
 
-CalcularCosto();
+// mostramos los productos
+class UI {
+  displayProducts(products) {
+    let result = "";
+    products?.map((product) => {
+      result += `
+              <div class="containerProduct">
+            <img src="${product.img}" class="imgProduct">
+            <h2>${product.name}</h2>
+            <div class="infoProduct">
+                <h4>Stock: ${product.stock}</h4>
+                <h3>$${product.price}</h3>
+            </div>
+              <button class="addProduct" data-id=${product.id}>Agregar</button>
+        </div>          `;
+    });
+    productsDOM.innerHTML = result;
+  }
+  getAddBtn() {
+    const addBtn = [...document.querySelectorAll(".addProduct")];
+    btnsDOM = addBtn;
+    addBtn?.forEach((btn) => {
+      let id = btn.dataset.id;
+      let inCart = cart.find((item) => item.id === id);
+      if (inCart) {
+        btn.innetText = "In Cart";
+        btn.disabled = true;
+      }
+      btn.addEventListener("click", (e) => {
+        e.target.innerText = "In Cart";
+        e.target.disabled = true;
+        // get product from products
+        let cartItem = { ...Storage.getProducts(id), amount: 1 };
+        // add product to the cart
+        cart = [...cart, cartItem];
+        // save cart in local storage
+        Storage.saveCart(cart);
+        // set cart values
+        this.setCartValues(cart);
+        // display cart item
+        this.addCartItem(cartItem);
+        // show cart
+      });
+    });
+  }
+  setCartValues(cart) {
+    let tempTotal = 0;
+    let itemsTotal = 0;
+    cart.map((item) => {
+      tempTotal += parseInt(item.price * item.amount);
+      itemsTotal += item.amount;
+    });
+    cartTotal.innerText = parseFloat(tempTotal);
+    cartItems.innerText = itemsTotal;
+    console.log(cartTotal, cartItems);
+  }
+  addCartItem(item) {
+    const addDiv = document.createElement("div");
+    addDiv.classList.add("cart-item");
+    addDiv.innerHTML = ` 
+            <img src=${item.img} alt=${item.name} />
+            <div>
+              <h4>${item.name}</h4>
+              <h5>${item.price}</h5>
+              <span class-="remove-item" data-id=${item.id}
+                ><i class="fa-solid fa-trash"></i
+              ></span>
+            </div>
+            <div>
+              <i class="fa-solid fa-circle-plus" data-id=${item.id}></i>
+              <p class="item-amount">${item.amount}</p>
+              <i class="fa-solid fa-circle-minus" data-id=${item.id}></i>
+            </div>
+          `;
+    cartContent.appendChild(addDiv);
+  }
+}
 
-//   const firstBatch = recetas.slice(0, 6);
+class Storage {
+  static saveProducts(products) {
+    localStorage.setItem("products", JSON.stringify(products));
+  }
+  static getProducts(id) {
+    let products = JSON.parse(localStorage.getItem("products"));
+    return products.find((product) => product.id === id);
+  }
+  static saveCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+}
 
-//   console.log(firstBatch, "corte");
+document.addEventListener("DOMContentLoaded", () => {
+  const ui = new UI();
+  const products = new Products();
 
-//   const [currentRecetasRender, setCurrentRecetasRender] = useState(firstBatch);
-
-//   const setCurrentRecetasRenderHandler = () => {
-//     do {
-//       setCurrentRecetasRender(
-//         recetas.slice(0, currentRecetasRender.length + 6)
-//       );
-//     } while (currentRecetasRender.length === recetas.length);
-// };
-
-//         <div className={handles.RecetaFooter}>
-//           {currentRecetasRender.length < 21 ? (
-//             <button
-//               className={handles.RecetaBtnSeeMore}
-//               onClick={setCurrentRecetasRenderHandler}
-//             >
-//               Ver más recetas
-//             </button>
-//           ) : (
-//             <p className={handles.RecetaNoMoreBlogs}>
-//               {" "}
-//               No hay más recetas por ahora
-//             </p>
-//           )}
-//         </div>;
+  // obtenemos todos los productos
+  products
+    .getProducts()
+    .then((products) => {
+      ui.displayProducts(products);
+      Storage.saveProducts(products);
+    })
+    .then(() => {
+      ui.getAddBtn();
+    });
+});
