@@ -21,42 +21,37 @@
   <body>
     <header>
       <nav>
-        <div>
+        <div class="logo-img">
           <img src="./assets/logo.png" alt="logo" />
+        </div>
+        <div class="title">
+          <h1>Tienda Mugiwaras</h1>
         </div>
         <ul>
           <li>Nosotros</li>
           <li>Categorias</li>
           <li>Tiendas</li>
+          <li class="cart-btn">
+            <div class="btn-cart">
+              <span class="icon-cart"
+                ><i class="fa-solid fa-cart-shopping"></i
+              ></span>
+              <div class="amount-items">0</div>
+            </div>
+          </li>
         </ul>
-        <div>
-          <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-        </div>
       </nav>
-      <div class="title">
-        <h1>Tienda Mugiwaras</h1>
-      </div>
     </header>
     <main>
-      <div>
+      <div class="cart-drop">
+        <span class="close-cart"><i class="fa-solid fa-circle-xmark"></i></span>
+        <h2>Tu carrito</h2>
+        <div id="cart-content"></div>
         <div id="carrito"></div>
-        <form>
-          <div class="input-cost">
-            <label for="precio1">Precio Producto 1</label>
-            <input type="number" name="precio1" id="precio1" /><br />
-            <label for="precio1">Precio Producto 2</label>
-            <input type="number" name="precio2" id="precio2" />
-            <input type="reset" value="Limpiar" />
-          </div>
-        </form>
-        <div id="totalCart">
-          <button id="calcular">Calcular Total!</button>
-          <p id="resultado"></p>
-        </div>
+        <div id="totalCart"></div>
       </div>
-      <div>
-        <div id="productos"></div>
-      </div>
+
+      <div id="products"></div>
     </main>
     <script src="./js/app.js"></script>
   </body>
