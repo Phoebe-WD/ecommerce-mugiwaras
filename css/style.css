@@ -1,93 +1,187 @@
 /* ESTILOS GLOBALES */
 :root {
-    --font-principal: 'KoHo',
-    sans-serif;
+  --font-principal: "KoHo", sans-serif;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    width: 100%;
-    height: 100%;
-    font-family: var(--font-principal);
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-principal);
 }
 
 /* FIN ESTILOS GLOBALES */
-header{
-    padding: 20px;
-    width: 100%;
-    display: flex;
-    height: auto;
-    background-color: #ff9800;
+header {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  height: auto;
+  background-color: #ff9800;
 }
 
-nav{
-    width: 90%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
+nav {
+  width: 90%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
 }
-nav .logo-img{
-    width: 20%;
+nav .logo-img {
+  width: 20%;
 }
 nav .logo-img img {
-    width: 100px;
-    height: 100px;
+  width: 100px;
+  height: 100px;
 }
-nav .title{
-    width: 60%;
-    text-align: center;
+nav .title {
+  width: 60%;
+  text-align: center;
 }
-nav ul{
-    width: 20%;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
+nav ul {
+  width: 20%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
-.cart-btn{
-    position: relative;
-    cursor: pointer;
+.cart-btn {
+  position: relative;
+  cursor: pointer;
 }
-.close-cart{
-    width: 30px;
-    height: 30px;
+.close-cart {
+  width: 30px;
+  height: 30px;
 }
 .fa-cart-shopping,
-.fa-circle-xmark {
-    color: #ab0c00;
-    font-size: 2rem;
+.fa-circle-xmark,
+.fa-circle-plus,
+.fa-circle-minus {
+  color: #ab0c00;
+  font-size: 2rem;
 }
-.amount-items{
-    position: absolute;
-    top: -8px;
-    right: -4px;
-    background-color: #3e81c1;
-    border-radius: 30%;
-    color: #fff;
-    padding: 0 5px;
+.amount-items {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  background-color: #3e81c1;
+  border-radius: 30%;
+  color: #fff;
+  padding: 0 5px;
 }
-#products{
-    padding: 10px;
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
+.cart-drop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s linear;
+  background: rgb(240, 157, 81, 0.5);
+  z-index: 2;
+  visibility: hidden;
+}
+.cart-side {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  z-index: 3;
+  background: rgb(231, 226, 221);
+  padding: 1.5rem;
+  transition: all 0.3s linear;
+  transform: translateX(100%);
+}
+.showCart {
+  transform: translateX(0);
+}
+.transparentBcg {
+  visibility: visible;
+} /* --------------- Cart ---------------- */
+
+@media screen and (min-width: 768px) {
+  .cart-side {
+    width: 30vw;
+    min-width: 450px;
+  }
 }
 
-.imgProduct{
-    width: 300px;
-    height: 300px;
+.close-cart {
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+.cart-side h2 {
+  text-transform: capitalize;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+/*---------- Cart Item -------------------- */
+.cart-item {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+.cart-item-row {
+  display: flex;
+  width: 50%;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+.cart-item img {
+  width: 75px;
+  height: 75px;
+}
+.cart-item h4 {
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+.cart-item h5 {
+  margin: 0.5rem 0;
+}
+.item-amount {
+  text-align: center;
+}
+.remove-item {
+  color: grey;
+  cursor: pointer;
+}
+/*---------- End of Cart Item -------------------- */
+
+.cart-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+.cart-footer h3 {
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+/* --------------- End of Cart ---------------- */
+#products {
+  padding: 10px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.imgProduct {
+  width: 300px;
+  height: 300px;
 }

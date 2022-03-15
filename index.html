@@ -44,15 +44,21 @@
     </header>
     <main>
       <div class="cart-drop">
-        <span class="close-cart"><i class="fa-solid fa-circle-xmark"></i></span>
-        <h2>Tu carrito</h2>
-        <div id="cart-content"></div>
-        <div id="carrito"></div>
-        <div id="totalCart"></div>
+        <div class="cart-side">
+          <span class="close-cart"
+            ><i class="fa-solid fa-circle-xmark"></i
+          ></span>
+          <h2>Tu carrito</h2>
+          <div id="cart-content"></div>
+          <div id="carrito"></div>
+          <div id="totalCart"></div>
+          <button id="clearCart">Limpiar carrito</button>
+        </div>
       </div>
 
       <div id="products"></div>
     </main>
     <script src="./js/app.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>
