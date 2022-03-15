@@ -3,6 +3,11 @@ const productsDOM = document.querySelector("#products");
 const cartTotal = document.querySelector("#totalCart");
 const cartItems = document.querySelector("#carrito");
 const cartContent = document.querySelector("#cart-content");
+const cartDrop = document.querySelector(".cart-drop");
+const cartDOM = document.querySelector(".cart-side");
+const closeCart = document.querySelector(".close-cart");
+const cartBtn = document.querySelector(".btn-cart");
+const clearCart = document.querySelector("#clearCart");
 
 //nuestro carrito
 
@@ -62,17 +67,23 @@ class UI {
       btn.addEventListener("click", (e) => {
         e.target.innerText = "In Cart";
         e.target.disabled = true;
-        // get product from products
+        Swal.fire({
+          icon: "success",
+          title: "Tu producto fue añadido con éxito al carrito",
+          confirmButtonColor: "#ff9800",
+        });
+        // obtenemos los productos desde el método
         let cartItem = { ...Storage.getProducts(id), amount: 1 };
-        // add product to the cart
+        // añadimos productos al carrito
         cart = [...cart, cartItem];
-        // save cart in local storage
+        // guardamos el carrito en local storage
         Storage.saveCart(cart);
-        // set cart values
+        // le añadimos los valores al carrito
         this.setCartValues(cart);
-        // display cart item
+        // mostrar productos en el carrito
         this.addCartItem(cartItem);
-        // show cart
+        // mostrar carrito
+        this.showCart();
       });
     });
   }
@@ -88,11 +99,12 @@ class UI {
     console.log(cartTotal, cartItems);
   }
   addCartItem(item) {
+    console.log(item.amount);
     const addDiv = document.createElement("div");
     addDiv.classList.add("cart-item");
     addDiv.innerHTML = ` 
             <img src=${item.img} alt=${item.name} />
-            <div>
+            <div class="cart-item-row">
               <h4>${item.name}</h4>
               <h5>${item.price}</h5>
               <span class-="remove-item" data-id=${item.id}
@@ -107,6 +119,65 @@ class UI {
           `;
     cartContent.appendChild(addDiv);
   }
+  showCart() {
+    cartDrop.classList.add("transparentBcg");
+    cartDOM.classList.add("showCart");
+  }
+  setupAPP() {
+    cart = Storage.getCart();
+    this.setCartValues(cart);
+    this.populateCart(cart);
+    cartBtn.addEventListener("click", this.showCart);
+    closeCart.addEventListener("click", this.closeCart);
+  }
+  populateCart(cart) {
+    cart.forEach((item) => this.addCartItem(item));
+  }
+  closeCart() {
+    cartDrop.classList.remove("transparentBcg");
+    cartDOM.classList.remove("showCart");
+  }
+  cartLogic() {
+    // limpiar carrito
+    clearCart.addEventListener("click", () => this.clearCart());
+    // funcionalidad del carrito
+  }
+  clearCart() {
+    console.log(this);
+    let cartItems = cart.map((item) => item.id);
+    console.log(cartItems);
+    Swal.fire({
+      title: "¿Estás seguro que quieres eliminar tus productos?",
+      text: "¡No podrás deshacer esta acción",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "¡Sí, eliminar productos!",
+      cancelButtonText: "¡Noo, cancelar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        cartItems.forEach((id) => this.removeItem(id));
+        while (cartContent.children.length > 0) {
+          cartContent.removeChild(cartContent.children[0]);
+          console.log(cartContent.children);
+        }
+        this.closeCart();
+        Swal.fire("¡Listo!", "Se ha limpiado el carrito con éxito", "success");
+      }
+    });
+  }
+  removeItem(id) {
+    cart = cart.filter((item) => item.id !== id);
+    this.setCartValues(cart);
+    Storage.saveCart(cart);
+    let btn = this.getSingleBtn(id);
+    btn.disabled = false;
+    btn.innerText = "Agregar";
+  }
+  getSingleBtn(id) {
+    return btnsDOM.find((btn) => btn.dataset.id === id);
+  }
 }
 
 class Storage {
@@ -120,12 +191,18 @@ class Storage {
   static saveCart(cart) {
     localStorage.setItem("cart", JSON.stringify(cart));
   }
+  static getCart() {
+    return localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
   const products = new Products();
-
+  // confi app
+  ui.setupAPP();
   // obtenemos todos los productos
   products
     .getProducts()
@@ -135,5 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(() => {
       ui.getAddBtn();
+      ui.cartLogic();
     });
 });
