@@ -1,7 +1,7 @@
 // Variables del DOM
 const productsDOM = document.querySelector("#products");
 const cartTotal = document.querySelector("#totalCart");
-const cartItems = document.querySelector("#carrito");
+const cartItems = document.querySelector(".amount-items");
 const cartContent = document.querySelector("#cart-content");
 const cartDrop = document.querySelector(".cart-drop");
 const cartDOM = document.querySelector(".cart-side");
@@ -9,8 +9,7 @@ const closeCart = document.querySelector(".close-cart");
 const cartBtn = document.querySelector(".btn-cart");
 const clearCart = document.querySelector("#clearCart");
 
-//nuestro carrito
-
+// carrito
 let cart = [];
 let btnsDOM = [];
 
@@ -107,9 +106,8 @@ class UI {
             <div class="cart-item-row">
               <h4>${item.name}</h4>
               <h5>${item.price}</h5>
-              <span class-="remove-item" data-id=${item.id}
-                ><i class="fa-solid fa-trash"></i
-              ></span>
+              <i class="fa-solid fa-trash remove-item" data-id=${item.id}></i
+              >
             </div>
             <div>
               <i class="fa-solid fa-circle-plus" data-id=${item.id}></i>
@@ -119,6 +117,7 @@ class UI {
           `;
     cartContent.appendChild(addDiv);
   }
+  //método para mostrar el carrito
   showCart() {
     cartDrop.classList.add("transparentBcg");
     cartDOM.classList.add("showCart");
@@ -133,6 +132,7 @@ class UI {
   populateCart(cart) {
     cart.forEach((item) => this.addCartItem(item));
   }
+  //método para cerrar el carrito
   closeCart() {
     cartDrop.classList.remove("transparentBcg");
     cartDOM.classList.remove("showCart");
@@ -141,33 +141,58 @@ class UI {
     // limpiar carrito
     clearCart.addEventListener("click", () => this.clearCart());
     // funcionalidad del carrito
-  }
-  clearCart() {
-    console.log(this);
-    let cartItems = cart.map((item) => item.id);
-    console.log(cartItems);
-    Swal.fire({
-      title: "¿Estás seguro que quieres eliminar tus productos?",
-      text: "¡No podrás deshacer esta acción",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "¡Sí, eliminar productos!",
-      cancelButtonText: "¡Noo, cancelar!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        cartItems.forEach((id) => this.removeItem(id));
-        while (cartContent.children.length > 0) {
-          cartContent.removeChild(cartContent.children[0]);
-          console.log(cartContent.children);
+    cartContent.addEventListener("click", (event) => {
+      console.log(event.target);
+      if (event.target.classList.contains("remove-item")) {
+        let removeItem = event.target;
+        console.log(removeItem);
+        let id = removeItem.dataset.id;
+        cartContent.removeChild(removeItem.parentElement.parentElement);
+        this.removeItem(id);
+      } else if (event.target.classList.contains("fa-circle-plus")) {
+        let addAmount = event.target;
+        let id = addAmount.dataset.id;
+        let tempItem = cart.find((item) => item.id === id);
+        tempItem.amount = tempItem.amount + 1;
+        Storage.saveCart(cart);
+        this.setCartValues(cart);
+        addAmount.nextElementSibling.innerText = tempItem.amount;
+      } else if (event.target.classList.contains("fa-circle-minus")) {
+        let removeAmount = event.target;
+        let id = removeAmount.dataset.id;
+        let tempItem = cart.find((item) => item.id === id);
+        tempItem.amount = tempItem.amount - 1;
+        if (tempItem.amount > 0) {
+          Storage.saveCart(cart);
+          this.setCartValues(cart);
+          removeAmount.previousElementSibling.innerText = tempItem.amount;
+        } else {
+          cartContent.removeChild(removeAmount.parentElement.parentElement);
+          this.removeItem(id);
         }
-        this.closeCart();
-        Swal.fire("¡Listo!", "Se ha limpiado el carrito con éxito", "success");
       }
     });
   }
+  //método para limpiar el carrito
+  clearCart() {
+    Swal.fire({
+      icon: "success",
+      title: "Tu carrito se ha limpiado con éxito",
+      confirmButtonColor: "#ff9800",
+    });
+    let cartItems = cart.map((item) => item.id);
+    cartItems.forEach((id) => this.removeItem(id));
+    while (cartContent.children.length > 0) {
+      cartContent.removeChild(cartContent.children[0]);
+    }
+    this.closeCart();
+  }
   removeItem(id) {
+    Swal.fire({
+      icon: "success",
+      title: "Tu producto se ha eliminado con éxito del carrito",
+      confirmButtonColor: "#ff9800",
+    });
     cart = cart.filter((item) => item.id !== id);
     this.setCartValues(cart);
     Storage.saveCart(cart);
