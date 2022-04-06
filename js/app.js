@@ -1,4 +1,4 @@
-// Variables del DOM
+// Variables
 const productsDOM = document.querySelector("#products");
 const cartTotal = document.querySelector("#totalCart");
 const cartItems = document.querySelector(".amount-items");
@@ -9,11 +9,11 @@ const closeCart = document.querySelector(".close-cart");
 const cartBtn = document.querySelector(".btn-cart");
 const clearCart = document.querySelector("#clearCart");
 
-// carrito
+// Cart
 let cart = [];
 let btnsDOM = [];
 
-// obtenemos los productos
+// Get Products
 class Products {
   async getProducts() {
     try {
@@ -35,7 +35,7 @@ class Products {
   }
 }
 
-// mostramos los productos
+// Show Products
 class UI {
   displayProducts(products) {
     let result = "";
@@ -45,10 +45,11 @@ class UI {
             <img src="${product.img}" class="imgProduct">
             <h2>${product.name}</h2>
             <div class="infoProduct">
-                <h4>Stock: ${product.stock}</h4>
-                <h3>$${product.price}</h3>
+                <h3>Stock: ${product.stock}</h3>
+                <h4>$${product.price}</h4>
             </div>
-              <button class="addProduct" data-id=${product.id}>Agregar</button>
+              <button class="addProduct" data-id=${product.id}>Agregar al carrito <i class="fa-solid fa-cart-shopping"></i
+              ></button>
         </div>          `;
     });
     productsDOM.innerHTML = result;
@@ -71,17 +72,17 @@ class UI {
           title: "Tu producto fue añadido con éxito al carrito",
           confirmButtonColor: "#ff9800",
         });
-        // obtenemos los productos desde el método
+        // Get products through method
         let cartItem = { ...Storage.getProducts(id), amount: 1 };
-        // añadimos productos al carrito
+        // Adding product to the cart
         cart = [...cart, cartItem];
-        // guardamos el carrito en local storage
+        // Saving cart in local storage
         Storage.saveCart(cart);
-        // le añadimos los valores al carrito
+        // We add values to the cart
         this.setCartValues(cart);
-        // mostrar productos en el carrito
+        // Showing products in Cart
         this.addCartItem(cartItem);
-        // mostrar carrito
+        // Show Cart
         this.showCart();
       });
     });
@@ -93,7 +94,7 @@ class UI {
       tempTotal += parseInt(item.price * item.amount);
       itemsTotal += item.amount;
     });
-    cartTotal.innerText = parseFloat(tempTotal);
+    cartTotal.innerText = `Total: $${parseFloat(tempTotal)}`;
     cartItems.innerText = itemsTotal;
     console.log(cartTotal, cartItems);
   }
@@ -105,11 +106,11 @@ class UI {
             <img src=${item.img} alt=${item.name} />
             <div class="cart-item-row">
               <h4>${item.name}</h4>
-              <h5>${item.price}</h5>
+              <h5>$${item.price}</h5>
               <i class="fa-solid fa-trash remove-item" data-id=${item.id}></i
               >
             </div>
-            <div>
+            <div class="cart-item-count">
               <i class="fa-solid fa-circle-plus" data-id=${item.id}></i>
               <p class="item-amount">${item.amount}</p>
               <i class="fa-solid fa-circle-minus" data-id=${item.id}></i>
@@ -117,7 +118,7 @@ class UI {
           `;
     cartContent.appendChild(addDiv);
   }
-  //método para mostrar el carrito
+  // Method to show cart
   showCart() {
     cartDrop.classList.add("transparentBcg");
     cartDOM.classList.add("showCart");
@@ -132,15 +133,15 @@ class UI {
   populateCart(cart) {
     cart.forEach((item) => this.addCartItem(item));
   }
-  //método para cerrar el carrito
+  // Method to close cart
   closeCart() {
     cartDrop.classList.remove("transparentBcg");
     cartDOM.classList.remove("showCart");
   }
   cartLogic() {
-    // limpiar carrito
+    // Clean cart
     clearCart.addEventListener("click", () => this.clearCart());
-    // funcionalidad del carrito
+    // Functionality of cart
     cartContent.addEventListener("click", (event) => {
       console.log(event.target);
       if (event.target.classList.contains("remove-item")) {
@@ -173,7 +174,7 @@ class UI {
       }
     });
   }
-  //método para limpiar el carrito
+  //Method to clean cart
   clearCart() {
     Swal.fire({
       icon: "success",
@@ -198,7 +199,8 @@ class UI {
     Storage.saveCart(cart);
     let btn = this.getSingleBtn(id);
     btn.disabled = false;
-    btn.innerText = "Agregar";
+    btn.innerHTML = `Agregar al carrito <i class="fa-solid fa-cart-shopping"></i
+              >`;
   }
   getSingleBtn(id) {
     return btnsDOM.find((btn) => btn.dataset.id === id);
@@ -226,9 +228,9 @@ class Storage {
 document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
   const products = new Products();
-  // confi app
+  // App Config
   ui.setupAPP();
-  // obtenemos todos los productos
+  // Get all products
   products
     .getProducts()
     .then((products) => {
