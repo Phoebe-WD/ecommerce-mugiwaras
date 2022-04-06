@@ -6,7 +6,7 @@ Created as a project for a CoderHouse course of JavaScript.
 
 This is a Ecommerce website created as a final project for a course to learn JavaScript.😊
 
-[Deploy site](/)
+[Deploy site](https://phoebe-wd.github.io/ecommerce-mugiwaras/)
 
 ### Languages used 👩‍💻
 
