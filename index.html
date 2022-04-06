@@ -22,12 +22,12 @@
     <header>
       <nav>
         <div class="logo-img">
-          <img src="./assets/logo.png" alt="logo" />
+          <a href="/"><img src="./assets/logo.png" alt="logo" /></a>
         </div>
         <div class="title">
           <h1>Tienda Mugiwaras</h1>
         </div>
-        <ul>
+        <ul class="menu">
           <li><a href="/pages/inConstruction.html"> Nosotros </a></li>
           <li><a href="/pages/inConstruction.html"> Categorias</a></li>
           <li><a href="/pages/inConstruction.html"> Tiendas </a></li>
@@ -50,8 +50,10 @@
           ></span>
           <h2>Tu carrito</h2>
           <div id="cart-content"></div>
-          <div id="totalCart"></div>
-          <button id="clearCart">Limpiar carrito</button>
+          <div class="cart-btn-total">
+            <div id="totalCart"></div>
+            <button id="clearCart">Limpiar carrito</button>
+          </div>
         </div>
       </div>
       <div id="products"></div>
