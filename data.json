@@ -5,7 +5,7 @@
     "description": "Futuro Rey de los Piratas ",
     "stock": 10,
     "img": "/assets/monkey-d-luffy.jpg",
-    "precio": 200
+    "precio": 1500
   },
   {
     "id": "2",
@@ -13,7 +13,7 @@
     "description": "El mejor espadachin de los Mugiwaras",
     "stock": 8,
     "img": "/assets/zoro.jpg",
-    "precio": 150
+    "precio": 320
   },
   {
     "id": "3",
@@ -21,7 +21,7 @@
     "description": "Piernas negras, best cocinero",
     "stock": 6,
     "img": "/assets/sanji.jpg",
-    "precio": 150
+    "precio": 330
   },
   {
     "id": "4",
@@ -29,7 +29,7 @@
     "description": "Best navegante ever",
     "stock": 5,
     "img": "/assets/nami.jpg",
-    "precio": 160
+    "precio": 66
   },
   {
     "id": "5",
@@ -37,7 +37,7 @@
     "description": "Love al tanuki",
     "stock": 3,
     "img": "/assets/chopper.jpg",
-    "precio": 50
+    "precio": 100
   },
   {
     "id": "6",
@@ -45,7 +45,7 @@
     "description": "Best constructor",
     "stock": 4,
     "img": "/assets/franky.jpg",
-    "precio": 100
+    "precio": 94
   },
   {
     "id": "7",
@@ -53,7 +53,7 @@
     "description": "Best historiadora",
     "stock": 2,
     "img": "/assets/nico-robin.jpg",
-    "precio": 100
+    "precio": 130
   },
   {
     "id": "8",
@@ -61,7 +61,7 @@
     "description": "Best Francotirador",
     "stock": 7,
     "img": "/assets/usopp.jpg",
-    "precio": 100
+    "precio": 200
   },
   {
     "id": "9",
@@ -69,7 +69,7 @@
     "description": "Best Gyojin",
     "stock": 12,
     "img": "/assets/jinbe.jpg",
-    "precio": 100
+    "precio": 438
   },
   {
     "id": "10",
@@ -77,6 +77,6 @@
     "description": "Best Brotha",
     "stock": 12,
     "img": "/assets/sabo.jpg",
-    "precio": 100
+    "precio": 602
   }
 ]
