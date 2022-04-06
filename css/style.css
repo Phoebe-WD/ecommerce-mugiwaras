@@ -15,7 +15,9 @@ body {
   font-family: var(--font-principal);
 }
 
-/* FIN ESTILOS GLOBALES */
+/* END ESTILOS GLOBALES */
+
+/* HEADER */
 header {
   padding: 20px;
   width: 100%;
@@ -53,14 +55,21 @@ nav ul {
   justify-content: space-between;
   align-items: center;
 }
+nav ul li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+}
+nav ul li a:hover {
+  color: #ab0c00;
+}
 .cart-btn {
   position: relative;
   cursor: pointer;
 }
-.close-cart {
-  width: 30px;
-  height: 30px;
-}
+/* END HEADER */
+/*  CART  */
+
 .fa-cart-shopping,
 .fa-circle-xmark,
 .fa-circle-plus,
@@ -95,7 +104,7 @@ nav ul {
   right: 0;
   width: 100%;
   height: 100%;
-  overflow: scroll;
+  overflow: hidden;
   z-index: 3;
   background: rgb(231, 226, 221);
   padding: 1.5rem;
@@ -107,25 +116,20 @@ nav ul {
 }
 .transparentBcg {
   visibility: visible;
-} /* --------------- Cart ---------------- */
-
-@media screen and (min-width: 768px) {
-  .cart-side {
-    width: 30vw;
-    min-width: 450px;
-  }
 }
 
 .close-cart {
   font-size: 1.7rem;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
 }
 .cart-side h2 {
   text-transform: capitalize;
   text-align: center;
   margin-bottom: 2rem;
 }
-/*---------- Cart Item -------------------- */
+/* CART ITEM  */
 .cart-item {
   display: flex;
   flex-flow: row nowrap;
@@ -141,16 +145,24 @@ nav ul {
   gap: 20px;
   align-items: center;
 }
+.cart-item-count {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
 .cart-item img {
   width: 75px;
   height: 75px;
 }
 .cart-item h4 {
-  font-size: 0.85rem;
+  font-size: 1rem;
   text-transform: capitalize;
 }
 .cart-item h5 {
   margin: 0.5rem 0;
+  font-size: 1rem;
 }
 .item-amount {
   text-align: center;
@@ -159,7 +171,7 @@ nav ul {
   color: grey;
   cursor: pointer;
 }
-/*---------- End of Cart Item -------------------- */
+/* END OF CART ITEM */
 
 .cart-footer {
   margin-top: 2rem;
@@ -169,23 +181,96 @@ nav ul {
   text-transform: capitalize;
   margin-bottom: 1rem;
 }
+.cart-btn-total {
+  padding: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+#totalCart {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+#clearCart {
+  font-family: var(--font-principal);
+  border: none;
+  background-color: #ff9800;
+  color: #fff;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+/* END OF CART  */
 
-/* --------------- End of Cart ---------------- */
+/* PRODUCTS */
 #products {
   padding: 10px;
   width: 90%;
   margin: 0 auto;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 5px;
+  gap: 20px;
+  margin-bottom: 20px;
 }
-
+.containerProduct {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: auto;
+  border: 1px solid #c2c2c2;
+  padding: 10px;
+}
+.containerProduct:hover {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
 .imgProduct {
   width: 300px;
   height: 300px;
 }
+.containerProduct h2 {
+  font-size: 1.8rem;
+}
+.infoProduct h4 {
+  color: #ab0c00;
+  font-size: 1.4rem;
+}
+.addProduct {
+  font-family: var(--font-principal);
+  border: none;
+  background-color: #ff9800;
+  color: #fff;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.addProduct:disabled {
+  background-color: #ccc;
+}
+.addProduct .fa-cart-shopping {
+  font-size: 1rem;
+  color: #fff;
+}
+/* END PRODUCTS */
+
+/* BUILDING PAGE */
+
+.en-construccion section {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  height: 76.1vh;
+}
+
+/* END BUILDING PAGE */
 
 /* FOOTER */
 
@@ -232,7 +317,7 @@ footer {
 .IconsSocial a:hover {
   color: #ab0c00;
 }
-
+/* END FOOTER */
 /* MEDIA QUERY */
 /* MOBILE S */
 @media screen and (min-width: 319px) and (max-width: 374px) {
@@ -276,5 +361,12 @@ footer {
 
   .IconsSocial {
     gap: 15px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .cart-side {
+    width: 30vw;
+    min-width: 450px;
   }
 }
